@@ -7,3 +7,10 @@
 
 - **TODO:**
   - Format ---.com/webhook data, right now it is just being thrown there
+
+
+- **Ruby**
+  - ruby '2.4.1'
+  - gem 'thin'
+  - gem 'sinatra'
+  - gem 'json'
