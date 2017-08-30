@@ -34,7 +34,7 @@ post '/webhook' do
 
   # command to post message to flowdock with unique flow token
   %x(curl -i -X POST -H "Content-Type: application/json" -d '{
-        "flow_token": "78a27f6405d80ab8a7fa8b33a770114f",
+        "flow_token": "",
         "event": "activity",
         "author": {
           "name": "#{heroku_app_name}",
@@ -45,7 +45,7 @@ post '/webhook' do
         "thread": {
           "title": "Heroku",
           "body": "none",
-          "external_url": "https://sinatra-webhook.herokuapp.com/webhook",
+          "external_url": "",
           "status": {
             "color": "grey",
             "value": "CHANGE"
