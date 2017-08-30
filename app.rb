@@ -1,8 +1,13 @@
+$stdout.sync = true
+
 require 'sinatra'
 
 get '/' do
   "<h3>ignore</h3>"
 end
+
+# global var - used in index.html.erb
+$output = []
 
 post '/webhook' do
   status 200
@@ -19,22 +24,18 @@ post '/webhook' do
     heroku_hmac && Rack::Utils.secure_compare(calculated_hmac, heroku_hmac)
   end
 
-  # parse POST request
+  # POST request data
   json_data = JSON.parse(request.body.read.to_s)
-
-  # global var - used in index.html.erb
-  $output = []
   $output << json_data
 
   # picking out data from heroku post request
   heroku_app_name = json_data["data"]["app"]["name"]
   heroku_timestamp = json_data["data"]["created_at"]
   heroku_description = json_data["data"]["description"]
-  heroku_email = json_data["actor"]["email"]
 
   # command to post message to flowdock with unique flow token
   %x(curl -i -X POST -H "Content-Type: application/json" -d '{
-        "flow_token": "",
+        "flow_token": "78a27f6405d80ab8a7fa8b33a770114f",
         "event": "activity",
         "author": {
           "name": "#{heroku_app_name}",
@@ -45,7 +46,7 @@ post '/webhook' do
         "thread": {
           "title": "Heroku",
           "body": "none",
-          "external_url": "",
+          "external_url": "https://sinatra-webhook.herokuapp.com/webhook",
           "status": {
             "color": "grey",
             "value": "CHANGE"
