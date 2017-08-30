@@ -4,9 +4,6 @@ get '/' do
   "<h3>ignore</h3>"
 end
 
-# global var - used in index.html.erb
-$output = []
-
 post '/webhook' do
   status 200
 
@@ -22,11 +19,14 @@ post '/webhook' do
     heroku_hmac && Rack::Utils.secure_compare(calculated_hmac, heroku_hmac)
   end
 
-  # picking out data from heroku post request
+  # parse POST request
   json_data = JSON.parse(request.body.read.to_s)
-  $output << json_data
-  $output.join(", ")
 
+  # global var - used in index.html.erb
+  $output = []
+  $output << json_data
+
+  # picking out data from heroku post request
   heroku_app_name = json_data["data"]["app"]["name"]
   heroku_timestamp = json_data["data"]["created_at"]
   heroku_description = json_data["data"]["description"]
