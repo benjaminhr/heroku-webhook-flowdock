@@ -5,12 +5,6 @@
   - follow this [tutorial](https://www.flowdock.com/api/integration-getting-started) to setup Flowdock notifications
   - Add Flowdock curl command with your own keys, etc. to **app.rb**
 
-- **Ruby**
-  - ruby '2.4.1'
-  - gem 'thin'
-  - gem 'sinatra'
-  - gem 'json'
-
 - **Explanation**
   1. Make change in Heroku app you are subscribed to
   2. Heroku triggers webhook --> sends POST request to your webhook app
@@ -18,5 +12,4 @@
   4. Flowdock receives POST with parameters, sends message to specified flow inbox
   5. Great success.
 
-- **TODO:**
-  - Format ---.com/webhook data, right now it is just being thrown there
+- **Ruby related --> Gemfile.lock
